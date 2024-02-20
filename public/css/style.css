@@ -1,0 +1,168 @@
+body {
+    background-image: url('../image/background.png');
+    height: 100vh;
+    width: 100%;
+    background-size: cover;
+    background-repeat: no-repeat;
+    font-family: Podkova;
+    font-family: 'Podkova', serif !important;
+}
+.form-control {
+    border-radius: 5px;
+    border: 2px solid #FFFCFC !important;
+    background-color: #DC9727 !important;
+}
+#button-s {
+    color: #FFFCFC;
+    overflow: hidden;
+    background-image: linear-gradient(#DC9727, #000) !important;
+}
+
+.btn {
+    /* padding: 0 !important; */
+}
+
+#login-btn {
+    background: rgb(0, 0, 0);
+    background: linear-gradient(0deg, rgba(0, 0, 0, 1) 12%, rgba(220, 151, 39, 1) 100%);
+    border: 2px solid white !important;
+    color: white;
+}
+
+::placeholder {
+    color: #000 !important;
+    /* opacity: 1;  */
+}
+
+.form-design {
+    background: #0A0602;
+    border-radius: 30px;
+}
+
+
+.login-form {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 400px;
+}
+
+
+/* side bar css */
+
+.sidenav {
+    /* height: 100%; */
+    width: 260px;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    background-color: #111;
+    /* background: linear-gradient(180deg, #f9b60b47 0%, rgb(233 171 12 / 39%) 64.58%, rgba(5, 10, 17, 0.00) 100%); */
+    /* background-blend-mode: multiply; */
+    overflow-x: hidden;
+    padding-top: 20px;
+}
+
+.sidenav a {
+    padding: 6px 8px 6px 16px;
+    text-decoration: none;
+    font-size: 25px;
+    color: white;
+    display: block;
+}
+
+.sidenav a:hover {
+    color: #f1f1f1;
+}
+
+.main {
+    margin-left: 248px;
+    /* Same as the width of the sidenav */
+    font-size: 19px;
+    /* padding: 0px 10px; */
+    color: white;
+}
+
+.sidenav ul li {
+    list-style-type: none;
+    font-size: 15px;
+}
+
+.sidenav ul li a {
+    list-style-type: none;
+    font-size: 18px;
+}
+.sidenav ul li a:hover{
+    color: #DC9727;
+}
+
+.dashboard-menu{
+    position: fixed;
+    height: 100%;
+    z-index: 99;
+    
+}
+.header-search{
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: -1;
+}
+
+.navbar-toggler {
+    background-color: white !important;
+}
+
+.icon-a{
+    font-weight: bolder !important;
+}
+.arro-b a{
+    color: #DC9727 !important;
+}
+.arro-b span{
+    font-size: 15px;}
+.user-button{
+    margin-bottom: 5px;
+}
+
+.card_details{
+    /* width: 15rem !important; */
+    box-shadow: 0px 0px 5px 1px black !important;
+}
+@media screen and (max-height: 450px) {
+    .sidenav {
+        padding-top: 15px;
+    }
+
+    .sidenav a {
+        font-size: 18px;
+    }
+}
+@media screen and (max-width:991px) {
+    .main{
+        margin-left: 0;
+    }
+    
+   
+}
+@media screen and (max-width:963px) {
+   body{
+    height: auto !important;
+    background-size: cover !important;
+   }   
+   
+}
+@media screen and (max-width:988px) {
+   
+   
+}
+
+
+
+
+
+
+
