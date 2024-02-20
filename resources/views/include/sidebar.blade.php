@@ -21,7 +21,7 @@
                     <li class="text-decoration-none"><a href="{{route('winning-user')}}">Winning User History</a></li>
                     <li class="text-decoration-none"><a href="{{route('withdraw-user')}}">User Withdraw History</a></li>
                     <li class="text-decoration-none"><a href="#">Settings</a></li>
-                    <li class="text-decoration-none"><a href="#">Logout</a></li>
+                    <li class="text-decoration-none"><a href="{{route('logout')}}">Logout</a></li>
                 </ul>
             </div>
         </div>

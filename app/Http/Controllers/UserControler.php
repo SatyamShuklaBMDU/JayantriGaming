@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class UserControler extends Controller
 {
@@ -20,5 +21,10 @@ class UserControler extends Controller
     }
     public function blockUser(){
         return view('users.blockAccount');
+    }
+    public function logout(){
+        Auth::logout();
+        session()->invalidate();
+        return redirect('/');
     }
 }
