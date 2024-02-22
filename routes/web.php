@@ -21,7 +21,7 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     Auth::logout();
     session()->invalidate();
-    return view('welcome');
+    return view('auth.login');
 });
 
 Route::get('/dashboard', function () {
@@ -38,6 +38,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/winning-users',[UserControler::class,'winningUser'])->name('winning-user');
     Route::get('/withdraw-users',[UserControler::class,'userWithdraw'])->name('withdraw-user');
     Route::get('/logout',[UserControler::class,'logout'])->name('logout');
+    Route::get('/betting-locations/{id}/edit', [BettingController::class, 'edit']);
 });
 
 require __DIR__.'/auth.php';

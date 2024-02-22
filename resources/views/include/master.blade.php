@@ -60,8 +60,10 @@
             margin-bottom: 1rem;
         }
     </style>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </head>
-
 <body>
     <div class="container">
         <div class="header">
@@ -73,9 +75,7 @@
         <section>
             @yield('content-area')
         </section>
-        @include('include.foot')
         @yield('script-area')
     </div>
 </body>
-
 </html>
