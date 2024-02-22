@@ -30,6 +30,7 @@ Route::get('/dashboard', function () {
 
 Route::middleware('auth')->group(function () {
     Route::get('/betting-location',[BettingController::class,'bettinglocation'])->name('betting-location');
+    Route::post('/betting-location',[BettingController::class,'store'])->name('betting-location-store');
     Route::get('/betting-number',[BettingController::class,'bettingnumber'])->name('betting-number');
     Route::get('/all-users',[UserControler::class,'allUser'])->name('all-user');
     Route::get('/active-users',[UserControler::class,'activeUser'])->name('active-user');
@@ -39,6 +40,10 @@ Route::middleware('auth')->group(function () {
     Route::get('/withdraw-users',[UserControler::class,'userWithdraw'])->name('withdraw-user');
     Route::get('/logout',[UserControler::class,'logout'])->name('logout');
     Route::get('/betting-locations/{id}/edit', [BettingController::class, 'edit']);
+    Route::get('/delete-betting-location/{id}', [BettingController::class, 'destroy'])->name('delete-betting-location');
+    Route::post('/update-betting-location-status', [BettingController::class, 'updatestatus']);
+    Route::put('/betting-locations/{id}', [BettingController::class, 'update']);
+    Route::post('/betting-locations-filter', [BettingController::class, 'filter'])->name('filter-batting-location');
 });
 
 require __DIR__.'/auth.php';
