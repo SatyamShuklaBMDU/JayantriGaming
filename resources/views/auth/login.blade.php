@@ -17,7 +17,7 @@
                 <div class="col-md-12 mx-auto" style="max-width: 40rem;">
                     <div class="border p-5 form-design">
                         <form method="POST" action="{{ route('login') }}">
-                            {{ csrf_field() }}
+                            @csrf
                             <div class="row">
                                 <div class="d-flex justify-content-center">
                                     <img src="{{asset('image/logo-2.png')}}" class="img-fluid">
