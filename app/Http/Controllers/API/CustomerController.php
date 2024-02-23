@@ -25,9 +25,10 @@ class CustomerController extends Controller
                 'status' => 'nullable|in:active,block,pending',
             ]);
             if ($request->hasFile('profile_image')) {
-                $imagePath = $request->file('profile_image')->store('profile_images');
-                $validatedData['profile_image'] = $imagePath;
-            }
+                $imageName = $request->file('profile_image')->getClientOriginalName();
+                $request->file('profile_image')->move(public_path('profile_images'), $imageName);
+                $validatedData['profile_image'] = 'profile_images/' . $imageName;
+            }                                   
             $validatedData['password'] = Hash::make($validatedData['password']);
             $customer = Customer::create($validatedData);
             return response()->json(['message' => 'Registered successfully', 'customer' => $customer], 201);
@@ -37,9 +38,11 @@ class CustomerController extends Controller
             return response()->json(['message' => 'Server Error'], 500);
         }
     }
-    public function update(Request $request, Customer $customer)
+    public function update(Request $request)
     {
+        // dd($request->all());
         try {
+            $customer = Customer::find($request->id);
             $validatedData = $request->validate([
                 'cin_no' => 'nullable|string',
                 'name' => 'string',
@@ -49,12 +52,13 @@ class CustomerController extends Controller
                 'password' => 'string',
                 'status' => 'nullable|in:active,block,pending',
             ]);
+            // dd($request->all());
             if ($request->hasFile('profile_image')) {
-                $imagePath = $request->file('profile_image')->store('profile_images');
-                $validatedData['profile_image'] = $imagePath;
-            }
+                $imageName = $request->file('profile_image')->getClientOriginalName();
+                $request->file('profile_image')->move(public_path('profile_images'), $imageName);
+                $validatedData['profile_image'] = 'profile_images/' . $imageName;
+            }                                
             $customer->update($validatedData);
-
             return response()->json(['message' => 'Details Update successfully','customer' => $customer], 200);
         } catch (ValidationException $e) {
             return response()->json(['errors' => $e->errors()], 422);

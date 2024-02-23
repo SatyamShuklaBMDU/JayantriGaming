@@ -151,8 +151,9 @@
                                     <td>{{ $customer->cin_no}}</td>
                                     <td class="col-2" style="padding:1rem;">{{ $customer->name}}</td>
                                     <td style="padding:1rem;">{{ $customer->phone_no}}</td>
+                                    {{-- @dd($customer->profile_image) --}}
                                     <td style="padding:1rem;">
-                                        <img src="{{asset('image/user1.png')}}" alt="">
+                                        <img src="{{asset('profile_images/'.$customer->profile_image)}}" alt="">
                                     </td>
                                     <td class="col-2" style="padding:1rem;">
                                         {{ $customer->email_id}}

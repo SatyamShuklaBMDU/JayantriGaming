@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\BettingController;
+use App\Http\Controllers\BettingNumberController;
 use App\Http\Controllers\ConstrumerController;
 use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\ProfileController;
@@ -32,7 +33,8 @@ Route::get('/dashboard', function () {
 Route::middleware('auth')->group(function () {
     Route::get('/betting-location',[BettingController::class,'bettinglocation'])->name('betting-location');
     Route::post('/betting-location',[BettingController::class,'store'])->name('betting-location-store');
-    Route::get('/betting-number',[BettingController::class,'bettingnumber'])->name('betting-number');
+    Route::post('/betting-number',[BettingNumberController::class,'store'])->name('betting-number-store');
+    Route::get('/betting-number',[BettingNumberController::class,'bettingnumber'])->name('betting-number');
     // Route::get('/all-users',[UserControler::class,'allUser'])->name('all-user');
     Route::get('/all-users',[ConstrumerController::class,'allUser'])->name('all-user');
     Route::get('/active-users',[UserControler::class,'activeUser'])->name('active-user');
@@ -42,10 +44,15 @@ Route::middleware('auth')->group(function () {
     Route::get('/withdraw-users',[UserControler::class,'userWithdraw'])->name('withdraw-user');
     Route::get('/logout',[UserControler::class,'logout'])->name('logout');
     Route::get('/betting-locations/{id}/edit', [BettingController::class, 'edit']);
-    Route::get('/delete-betting-location/{id}', [BettingController::class, 'destroy'])->name('delete-betting-location');
+    Route::delete('/delete-betting-location/{id}', [BettingController::class, 'destroy'])->name('delete-betting-location');
     Route::post('/update-betting-location-status', [BettingController::class, 'updatestatus']);
     Route::put('/betting-locations/{id}', [BettingController::class, 'update']);
     Route::post('/betting-locations-filter', [BettingController::class, 'filter'])->name('filter-batting-location');
+    Route::get('/betting-number/{id}/edit', [BettingNumberController::class, 'edit']);
+    Route::delete('/delete-betting-number/{id}', [BettingNumberController::class, 'destroy'])->name('delete-betting-number');
+    Route::post('/update-betting-number-status', [BettingNumberController::class, 'updatestatus']);
+    Route::put('/betting-number/{id}', [BettingNumberController::class, 'update']);
+    Route::post('/betting-number-filter', [BettingNumberController::class, 'filter'])->name('filter-batting-number');
 });
 
 require __DIR__.'/auth.php';

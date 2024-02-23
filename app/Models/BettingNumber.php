@@ -9,4 +9,8 @@ class BettingNumber extends Model
 {
     use HasFactory;
     protected $guarded=[];
+    public function location()
+    {
+        return $this->belongsTo(BettingLocation::class,'betting_location_id','id'); 
+    }
 }
