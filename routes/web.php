@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\BettingController;
+use App\Http\Controllers\ConstrumerController;
 use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UserControler;
@@ -31,7 +32,8 @@ Route::get('/dashboard', function () {
 Route::middleware('auth')->group(function () {
     Route::get('/betting-location',[BettingController::class,'bettinglocation'])->name('betting-location');
     Route::get('/betting-number',[BettingController::class,'bettingnumber'])->name('betting-number');
-    Route::get('/all-users',[UserControler::class,'allUser'])->name('all-user');
+    // Route::get('/all-users',[UserControler::class,'allUser'])->name('all-user');
+    Route::get('/all-users',[ConstrumerController::class,'allUser'])->name('all-user');
     Route::get('/active-users',[UserControler::class,'activeUser'])->name('active-user');
     Route::get('/block-users',[UserControler::class,'blockUser'])->name('block-user');
     Route::get('/payment-users',[PaymentController::class,'PaymentHistory'])->name('payment-user');
