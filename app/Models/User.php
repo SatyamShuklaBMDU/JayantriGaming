@@ -6,6 +6,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Facades\Log;
 use Laravel\Sanctum\HasApiTokens;
 
 class User extends Authenticatable
@@ -21,6 +22,8 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'role',
+        'permissions',
     ];
 
     /**
@@ -42,4 +45,20 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
+    public function hasPermission($permission)
+    {
+        try {
+            $userPermissions = json_decode($this->permissions, true);
+            if (!is_array($userPermissions)) {
+                throw new \Exception('User permissions are not properly initialized');
+            }
+            if (in_array('all', $userPermissions)) {
+                return true;
+            }
+            return in_array($permission, $userPermissions);
+        } catch (\Throwable $th) {
+            Log::error($th->getMessage());
+            return false;
+        }
+    }
 }

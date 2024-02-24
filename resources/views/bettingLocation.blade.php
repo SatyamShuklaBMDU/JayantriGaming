@@ -4,27 +4,49 @@
         body {
             background-image: none;
         }
-
         .content-wrapper {
             height: 100vh;
         }
-
         .main1 {
             margin-left: 120px;
             /* margin-right: 0%; */
             font-size: 19px;
         }
-
         .btn {
             background-color: #02345f;
         }
-
         .btn:hover {
             background-color: #E7EAEA !important;
         }
     </style>
+    <style>
+        div.myTable_filter label {
+            float: right;
+            margin-top: -21px;
+            paading-left: 20%;
+        }
+        div.myTable_paging {
+            margin-top: -16px;
+            float: right;
+            padding-left: 20%;
+        }
+        .dt-button {
+            style=margin: 30px 0px 0px;
+            background-color: #dc9727 !important;
+            border-color: #dc9727 !important;
+            color: white !important;
+            background-color: #dc9727;
+        }
+        div.dt-container .dt-paging{
+            float: right;
+        }
+        div.dt-container, div.dt-container .dt-search, div.dt-container div.dt-container .dt-processing, div.dt-container{
+            float: right;
+        }
+    </style>
     <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
     <link rel="stylesheet" href="https://cdn.datatables.net/2.0.0/css/dataTables.dataTables.css" />
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/buttons/2.0.0/css/buttons.dataTables.min.css">
 @endsection
 @section('content-area')
     <div class="main1 mt-5">
@@ -148,7 +170,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="">
+                        <div class="mt-3">
                             <table class="table table-striped shadow-lg table-hover" id="myTable"
                                 style="margin-top:1rem">
                                 <thead>
@@ -165,8 +187,7 @@
                                     @foreach ($locations as $location)
                                         <tr data-location-id="{{ $location->id }}">
                                             <td style="padding: 1.5rem;">{{ $loop->iteration }}</td>
-                                            <td style="padding: 1.5rem;">
-                                                {{ Carbon\Carbon::parse($location->credit_date)->format('d/m/Y') }}</td>
+                                            <td style="padding: 1.5rem;">{{ Carbon\Carbon::parse($location->credit_date)->format('d/m/Y') }}</td>
                                             <td style="padding: 1.5rem;">{{ $location->betting_location }}</td>
                                             <td style="padding: 1.5rem;">{{ $location->total_number }}</td>
                                             <td class="text-success" style="padding: 1.5rem;">
@@ -265,6 +286,13 @@
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
     <script src="https://cdn.datatables.net/2.0.0/js/dataTables.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script type="text/javascript" src="https://cdn.datatables.net/buttons/2.0.0/js/dataTables.buttons.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.70/pdfmake.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.70/vfs_fonts.js"></script>
+    <script type="text/javascript" src="https://cdn.datatables.net/buttons/2.0.0/js/buttons.html5.min.js"></script>
+    <script type="text/javascript" src="https://cdn.datatables.net/buttons/2.0.0/js/buttons.print.min.js"></script>
+
     <script>
         $(document).ready(function() {
             $('.delete-location').click(function(event) {
@@ -291,7 +319,12 @@
     </script>
     <script>
         $(document).ready(function() {
-            $('#myTable').DataTable();
+            $('#myTable').DataTable({
+                dom: 'Bfrtip',
+                buttons: [
+                    'copy', 'csv', 'excel', 'pdf', 'print'
+                ]
+            });
         });
     </script>
     <script type="text/javascript">

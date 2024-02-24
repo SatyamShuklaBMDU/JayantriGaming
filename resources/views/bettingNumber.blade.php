@@ -23,8 +23,41 @@
             background-color: #E7EAEA !important;
         }
     </style>
+    <style>
+        div.myTable_filter label {
+            float: right;
+            margin-top: -21px;
+            paading-left: 20%;
+        }
+
+        div.myTable_paging {
+            margin-top: -16px;
+            float: right;
+            padding-left: 20%;
+        }
+
+        .dt-button {
+            style=margin: 30px 0px 0px;
+            background-color: #dc9727 !important;
+            border-color: #dc9727 !important;
+            color: white !important;
+            background-color: #dc9727;
+        }
+
+        div.dt-container .dt-paging {
+            float: right;
+        }
+
+        div.dt-container,
+        div.dt-container .dt-search,
+        div.dt-container div.dt-container .dt-processing,
+        div.dt-container {
+            float: right;
+        }
+    </style>
     <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
     <link rel="stylesheet" href="https://cdn.datatables.net/2.0.0/css/dataTables.dataTables.css" />
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/buttons/2.0.0/css/buttons.dataTables.min.css">
 @endsection
 @section('content-area')
     <div class="main1 mt-5">
@@ -180,115 +213,124 @@
                                 </div>
                             </div> --}}
                         <!-- buttons end -->
-                        <div class="">
-                            <table class="table table-striped shadow-lg table-hover" id="myTable"
-                                style="margin-top:1rem">
-                                <thead>
-                                    <tr style="padding: 5rem; background-color:#E7EAEA;">
-                                        <th style="padding: 1.5rem; font-size:1.5rem;">Sr. No.</th>
-                                        <th style="padding: 1.5rem; font-size:1.5rem;">Credit Date</th>
-                                        <th style="padding: 1.5rem; font-size:1.5rem">Location</th>
-                                        <th style="padding: 1.5rem; font-size:1.5rem">Number</th>
-                                        <th style="padding: 1.5rem; font-size:1.5rem">Status</th>
-                                        <th style="padding: 1.5rem; font-size:1.5rem">Action</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    @foreach ($betting as $location)
-                                        <tr data-location-id="{{ $location->id }}">
-                                            <td style="padding: 1.5rem;">{{ $loop->iteration }}</td>
-                                            <td style="padding: 1.5rem;">
-                                                {{ Carbon\Carbon::parse($location->credit_date)->format('d/m/Y') }}</td>
-                                            <td style="padding: 1.5rem;">{{ $location->location->betting_location }}</td>
-                                            <td style="padding: 1.5rem;">{{ $location->betting_number }}</td>
-                                            <td class="text-success" style="padding: 1.5rem;">
-                                                <div class="select">
-                                                    <select name="format" class="format">
-                                                        <option value="" selected disabled>Select Status</option>
-                                                        <option value="0"
-                                                            {{ $location->status == 0 ? 'selected' : '' }}>Deactivate
-                                                        </option>
-                                                        <option value="1"
-                                                            {{ $location->status == 1 ? 'selected' : '' }}>Activate
-                                                        </option>
-                                                    </select>
-                                                </div>
-                                            </td>
-                                            <td class="col" style="padding: 1.5rem;">
-                                                <div class="d-flex">
-                                                    <div class="edit me-2">
-                                                        <i class="fa-solid fa-pen-to-square edit-location"
-                                                            data-location-id="{{ $location->id }}"></i>
-                                                        <div class="modal fade" id="editModal" tabindex="-1"
-                                                            aria-labelledby="editModalLabel" aria-hidden="true">
-                                                            <div class="modal-dialog">
-                                                                <div class="modal-content">
-                                                                    <div class="modal-header">
-                                                                        <h5 class="modal-title" id="editModalLabel">
-                                                                            Edit Betting Number</h5>
-                                                                        <button type="button" class="btn-close"
-                                                                            data-bs-dismiss="modal"
-                                                                            aria-label="Close"></button>
+                        <div class="row mt-3 px-2">
+                            <div class="col">
+                                <table class="table table-striped shadow-lg table-hover" id="myTable"
+                                    style="margin-top:1rem">
+                                    <thead>
+                                        <tr style="padding: 5rem; background-color:#E7EAEA;">
+                                            <th style="padding: 1.5rem; font-size:1.5rem;">Sr. No.</th>
+                                            <th style="padding: 1.5rem; font-size:1.5rem;">Credit Date</th>
+                                            <th style="padding: 1.5rem; font-size:1.5rem">Location</th>
+                                            <th style="padding: 1.5rem; font-size:1.5rem">Number</th>
+                                            <th style="padding: 1.5rem; font-size:1.5rem">Status</th>
+                                            <th style="padding: 1.5rem; font-size:1.5rem">Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach ($betting as $location)
+                                            <tr data-location-id="{{ $location->id }}">
+                                                <td style="padding: 1.5rem;">{{ $loop->iteration }}</td>
+                                                <td style="padding: 1.5rem;">
+                                                    {{ Carbon\Carbon::parse($location->credit_date)->format('d/m/Y') }}
+                                                </td>
+                                                <td style="padding: 1.5rem;">{{ $location->location->betting_location }}
+                                                </td>
+                                                <td style="padding: 1.5rem;">{{ $location->betting_number }}</td>
+                                                <td class="text-success" style="padding: 1.5rem;">
+                                                    <div class="select">
+                                                        <select name="format" class="format">
+                                                            <option value="" selected disabled>Select Status</option>
+                                                            <option value="0"
+                                                                {{ $location->status == 0 ? 'selected' : '' }}>Deactivate
+                                                            </option>
+                                                            <option value="1"
+                                                                {{ $location->status == 1 ? 'selected' : '' }}>Activate
+                                                            </option>
+                                                        </select>
+                                                    </div>
+                                                </td>
+                                                <td class="col" style="padding: 1.5rem;">
+                                                    <div class="d-flex">
+                                                        <div class="edit me-2">
+                                                            <i class="fa-solid fa-pen-to-square edit-location"
+                                                                data-location-id="{{ $location->id }}"></i>
+                                                            <div class="modal fade" id="editModal" tabindex="-1"
+                                                                aria-labelledby="editModalLabel" aria-hidden="true">
+                                                                <div class="modal-dialog">
+                                                                    <div class="modal-content">
+                                                                        <div class="modal-header">
+                                                                            <h5 class="modal-title" id="editModalLabel">
+                                                                                Edit Betting Number</h5>
+                                                                            <button type="button" class="btn-close"
+                                                                                data-bs-dismiss="modal"
+                                                                                aria-label="Close"></button>
+                                                                        </div>
+                                                                        <form id="editLocationForm" action=""
+                                                                            method="POST">
+                                                                            @csrf
+                                                                            @method('PUT')
+                                                                            <div class="modal-body">
+                                                                                <div class="mb-3">
+                                                                                    <label for="edit_credit_date"
+                                                                                        class="form-label">CreditDate</label>
+                                                                                    <input type="text"
+                                                                                        class="form-control"
+                                                                                        id="edit_credit_date"
+                                                                                        name="credit_date" required>
+                                                                                </div>
+                                                                                <div class="mb-3">
+                                                                                    <label for="edit_betting_location"
+                                                                                        class="form-label">Betting
+                                                                                        Location</label>
+                                                                                    <select name="betting_location_id"
+                                                                                        id="edit_betting_location"
+                                                                                        class="form-control" required>
+                                                                                        <option selected disabled>Select
+                                                                                            Location</option>
+                                                                                        @foreach ($locations as $data)
+                                                                                            <option
+                                                                                                value="{{ $data->id }}">
+                                                                                                {{ $data->betting_location }}
+                                                                                            </option>
+                                                                                        @endforeach
+                                                                                    </select>
+                                                                                </div>
+                                                                                <div class="mb-3">
+                                                                                    <label for="edit_total_number"
+                                                                                        class="form-label">Betting
+                                                                                        Number</label>
+                                                                                    <input type="text"
+                                                                                        class="form-control"
+                                                                                        id="edit_total_number"
+                                                                                        name="betting_number" required>
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="modal-footer">
+                                                                                <button type="button"
+                                                                                    class="btn btn-secondary"
+                                                                                    data-bs-dismiss="modal">Close</button>
+                                                                                <button type="submit"
+                                                                                    class="btn btn-primary">Save
+                                                                                    changes</button>
+                                                                            </div>
+                                                                        </form>
                                                                     </div>
-                                                                    <form id="editLocationForm" action=""
-                                                                        method="POST">
-                                                                        @csrf
-                                                                        @method('PUT')
-                                                                        <div class="modal-body">
-                                                                            <div class="mb-3">
-                                                                                <label for="edit_credit_date"
-                                                                                    class="form-label">CreditDate</label>
-                                                                                <input type="text" class="form-control"
-                                                                                    id="edit_credit_date"
-                                                                                    name="credit_date" required>
-                                                                            </div>
-                                                                            <div class="mb-3">
-                                                                                <label for="edit_betting_location"
-                                                                                    class="form-label">Betting
-                                                                                    Location</label>
-                                                                                <select name="betting_location_id" id="edit_betting_location" class="form-control" required>
-                                                                                    <option selected disabled>Select Location</option>
-                                                                                    @foreach ($locations as $data)
-                                                                                        <option
-                                                                                            value="{{ $data->id }}">
-                                                                                            {{ $data->betting_location }}
-                                                                                        </option>
-                                                                                    @endforeach
-                                                                                </select>
-                                                                            </div>
-                                                                            <div class="mb-3">
-                                                                                <label for="edit_total_number"
-                                                                                    class="form-label">Betting
-                                                                                    Number</label>
-                                                                                <input type="text" class="form-control"
-                                                                                    id="edit_total_number"
-                                                                                    name="betting_number" required>
-                                                                            </div>
-                                                                        </div>
-                                                                        <div class="modal-footer">
-                                                                            <button type="button"
-                                                                                class="btn btn-secondary"
-                                                                                data-bs-dismiss="modal">Close</button>
-                                                                            <button type="submit"
-                                                                                class="btn btn-primary">Save
-                                                                                changes</button>
-                                                                        </div>
-                                                                    </form>
                                                                 </div>
                                                             </div>
                                                         </div>
+                                                        <div class="delet">
+                                                            <a href="#" class="delete-location"
+                                                                data-location-id="{{ $location->id }}"><i
+                                                                    class="fa-solid fa-trash"></i></a>
+                                                        </div>
                                                     </div>
-                                                    <div class="delet">
-                                                        <a href="#" class="delete-location"
-                                                            data-location-id="{{ $location->id }}"><i
-                                                                class="fa-solid fa-trash"></i></a>
-                                                    </div>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                    @endforeach
-                                </tbody>
-                            </table>
+                                                </td>
+                                            </tr>
+                                        @endforeach
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -303,6 +345,12 @@
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
     <script src="https://cdn.datatables.net/2.0.0/js/dataTables.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script type="text/javascript" src="https://cdn.datatables.net/buttons/2.0.0/js/dataTables.buttons.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.70/pdfmake.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.70/vfs_fonts.js"></script>
+    <script type="text/javascript" src="https://cdn.datatables.net/buttons/2.0.0/js/buttons.html5.min.js"></script>
+    <script type="text/javascript" src="https://cdn.datatables.net/buttons/2.0.0/js/buttons.print.min.js"></script>
     <script>
         $(document).ready(function() {
             $('.delete-location').click(function(event) {
@@ -329,7 +377,12 @@
     </script>
     <script>
         $(document).ready(function() {
-            $('#myTable').DataTable();
+            $('#myTable').DataTable({
+                dom: 'Bfrtip',
+                buttons: [
+                    'copy', 'csv', 'excel', 'pdf', 'print'
+                ]
+            });
         });
     </script>
     <script type="text/javascript">
