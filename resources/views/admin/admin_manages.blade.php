@@ -40,8 +40,6 @@
 @endsection
 @section('content-area')
     <div class="content-wrapper">
-        <!-- Container-fluid starts -->
-        <!-- Main content starts -->
         <div class="main1 mt-5">
             <div class="row">
                 <div class="col-sm-12 p-0 mt-4">
@@ -183,21 +181,6 @@
                                     Admin Manages
                                 </label>
                             </div>
-                            <!-- <div class="col-md-4"> -->
-                            {{-- <div class="form-check">
-                                <input class="form-check-input" type="checkbox" value="feedback" id="feedback"
-                                    name="permission[]">
-                                <label class="form-check-label" for="feedback">
-                                    Feedback
-                                </label>
-                            </div>
-                            <div class="form-check">
-                                <input class="form-check-input" type="checkbox" value="complaints" id="complaints"
-                                    name="permission[]">
-                                <label class="form-check-label" for="complaints">
-                                    Complaints
-                                </label>
-                            </div> --}}
                         </div>
                         <button type="submit" class="btn btn-dark btn-md float-end" style="margin: 30px 0px 0px;">Assign
                             Roles</button>
@@ -223,8 +206,8 @@
                                     <td>{{ $user->role }}</td>
                                     <td>{{ $user->permissions }}</td>
                                     <td>
-                                        <button type="button" class="btn btn-primary" data-bs-toggle="modal"
-                                            data-bs-target="#editModal{{ $user->id }}">Edit</button>
+                                        <button type="button" class="btn btn-primary" id="{{ $user->id }}"
+                                            onclick="showModal(this)">Edit</button>
                                     </td>
                                 </tr>
                                 <!-- Modal for editing permissions -->
@@ -238,157 +221,194 @@
                                                 <button type="button" class="btn-close" data-bs-dismiss="modal"
                                                     aria-label="Close"></button>
                                             </div>
-                                            <form id="editPermissionsForm{{ $user->id }}"
-                                                action="{{ route('update.permissions', $user->id) }}" method="post">
-                                                @csrf
-                                                <div class="modal-body">
-                                                    <!-- Add your form for editing permissions here -->
-                                                    <div class="form-group">
-                                                        <label for="name">Name</label>
-                                                        <input type="text" class="form-control" id="name"
-                                                            name="name" value="{{ $user->name }}" readonly>
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <label for="email">Email</label>
-                                                        <input type="email" class="form-control" id="email"
-                                                            name="email" value="{{ $user->email }}" readonly>
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <label for="role">Role</label>
-                                                        <input type="text" class="form-control" id="role"
-                                                            name="role" value="{{ $user->role }}">
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <label for="permissions">Permissions</label><br>
-                                                        <!-- Checkboxes for permissions -->
-                                                        <div class="col-md-12  Modules d-flex justify-content-around">
-                                                            <div class="form-check" style="">
-                                                                <input class="form-check-input" type="checkbox"
-                                                                    value="all" id="alluser" name="permission[]"
-                                                                    checked>
-                                                                <label class="form-check-label" for="alluser">
-                                                                    All
-                                                                </label>
-                                                            </div>
-                                                            <div class="form-check" style="">
-                                                                <input class="form-check-input" type="checkbox"
-                                                                    value="betting_location" id="betting_location"
-                                                                    name="permission[]">
-                                                                <label class="form-check-label" for="betting_location">
-                                                                    Betting Location
-                                                                </label>
-                                                            </div>
-                                                            <div class="form-check" style="">
-                                                                <input class="form-check-input" type="checkbox"
-                                                                    value="betting_number" id="betting_number"
-                                                                    name="permission[]">
-                                                                <label class="form-check-label" for="betting_number">
-                                                                    Betting Number
-                                                                </label>
-                                                            </div>
-                                                            <!-- <div class="col-md-4"> -->
-                                                            <div class="form-check">
-                                                                <input class="form-check-input" type="checkbox"
-                                                                    value="allusers" id="allusers" name="permission[]">
-                                                                <label class="form-check-label" for="allusers">
-                                                                    All User's Profile
-                                                                </label>
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-md-12 d-flex justify-content-around ">
-                                                            <div class="form-check ">
-                                                                <input class="form-check-input " type="checkbox"
-                                                                    value="activeusers" id="activeusers"
-                                                                    name="permission[]">
-                                                                <label class="form-check-label" for="corporatebatch">
-                                                                    Active User Account
-                                                                </label>
-                                                            </div>
-                                                            <div class="form-check">
-                                                                <input class="form-check-input" type="checkbox"
-                                                                    value="blockuser" id="blockuser" name="permission[]">
-                                                                <label class="form-check-label" for="blockuser">
-                                                                    Block User Account
-                                                                </label>
-                                                            </div>
-                                                            <!-- <div class="col-md-4"> -->
-                                                            <div class="form-check">
-                                                                <input class="form-check-input" type="checkbox"
-                                                                    value="paymenthistory" id="paymenthistory"
-                                                                    name="permission[]">
-                                                                <label class="form-check-label" for="paymenthistory">
-                                                                    Payment History
-                                                                </label>
-                                                            </div>
-                                                            <div class="form-check">
-                                                                <input class="form-check-input" type="checkbox"
-                                                                    value="winninghistory" id="winninghistory"
-                                                                    name="permission[]">
-                                                                <label class="form-check-label" for="winninghistory">
-                                                                    Winning History
-                                                                </label>
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-md-12 d-flex justify-content-around">
-                                                            <div class="form-check">
-                                                                <input class="form-check-input" type="checkbox"
-                                                                    value="withdrawhistory" id="withdrawhistory"
-                                                                    name="permission[]">
-                                                                <label class="form-check-label" for="withdrawhistory">
-                                                                    Withdraw History
-                                                                </label>
-                                                            </div>
-                                                            <div class="form-check">
-                                                                <input class="form-check-input" type="checkbox"
-                                                                    value="adminmanages" id="adminmanages"
-                                                                    name="permission[]">
-                                                                <label class="form-check-label" for="adminmanages">
-                                                                    Admin Manages
-                                                                </label>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="modal-footer">
-                                                        <button type="button" class="btn btn-secondary"
-                                                            data-bs-dismiss="modal">Close</button>
-                                                        <button type="submit" class="btn btn-primary">Save
-                                                            changes</button>
-                                                    </div>
-                                            </form>
                                         </div>
                                     </div>
                                 </div>
-                            @endforeach
-                        </tbody>
-                    </table>
+                                <!-- Modal Header -->
+                                <div class="row dashboard-header" style="background: #e5e5e5;">
+                                    <div class="col-md-11  mx-auto">
+                                        <div class="modal" id="myModal">
+                                            <div class="modal-dialog">
+                                                <div class="modal-content">
+                                                    <div class="container-fluid">
+                                                        <div class="row">
+                                                            <div class="main-header">
+                                                                <h4 class="mt-4">Edit User Profile</h4>
+                                                            </div>
+                                                        </div>
+                                                        <!-- Modal Header -->
+                                                        <div class="row dashboard-header" style="background: #e5e5e5;">
+                                                            <div class="col-md-11  mx-auto">
+                                                                <form id="editPermissionsForm{{ $user->id }}"
+                                                                    action="{{ route('update.permissions', $user->id) }}"
+                                                                    method="post">
+                                                                    @csrf
+                                                                    <div class="modal-body">
+                                                                        <!-- Add your form for editing permissions here -->
+                                                                        <input type="hidden" name="userId"
+                                                                            id="userId" value="">
+                                                                        <div class="form-group">
+                                                                            <label for="name">Name</label>
+                                                                            <input type="text" class="form-control"
+                                                                                id="userName" name="name"
+                                                                                value="" readonly>
+                                                                        </div>
+                                                                        <div class="form-group">
+                                                                            <label for="role">Role</label>
+                                                                            <input type="text" class="form-control"
+                                                                                id="userRole" name="role"
+                                                                                value="">
+                                                                        </div>
+                                                                        <div class="form-group">
+                                                                            <label
+                                                                                for="permissions">Permissions</label><br>
+                                                                            <!-- Checkboxes for permissions -->
+                                                                            <div
+                                                                                class="col-md-12  Modules d-flex justify-content-around">
+                                                                                <div class="form-check" style="">
+                                                                                    <input class="form-check-input"
+                                                                                        type="checkbox" value="all"
+                                                                                        id="alluser" name="permission[]"
+                                                                                        checked>
+                                                                                    <label class="form-check-label"
+                                                                                        for="alluser">
+                                                                                        All
+                                                                                    </label>
+                                                                                </div>
+                                                                                <div class="form-check" style="">
+                                                                                    <input class="form-check-input"
+                                                                                        type="checkbox"
+                                                                                        value="betting_location"
+                                                                                        id="betting_location"
+                                                                                        name="permission[]">
+                                                                                    <label class="form-check-label"
+                                                                                        for="betting_location">
+                                                                                        Betting Location
+                                                                                    </label>
+                                                                                </div>
+                                                                                <div class="form-check" style="">
+                                                                                    <input class="form-check-input"
+                                                                                        type="checkbox"
+                                                                                        value="betting_number"
+                                                                                        id="betting_number"
+                                                                                        name="permission[]">
+                                                                                    <label class="form-check-label"
+                                                                                        for="betting_number">
+                                                                                        Betting Number
+                                                                                    </label>
+                                                                                </div>
+                                                                                <!-- <div class="col-md-4"> -->
+                                                                                <div class="form-check">
+                                                                                    <input class="form-check-input"
+                                                                                        type="checkbox" value="allusers"
+                                                                                        id="allusers"
+                                                                                        name="permission[]">
+                                                                                    <label class="form-check-label"
+                                                                                        for="allusers">
+                                                                                        All User's Profile
+                                                                                    </label>
+                                                                                </div>
+                                                                            </div>
+                                                                            <div
+                                                                                class="col-md-12 d-flex justify-content-around ">
+                                                                                <div class="form-check ">
+                                                                                    <input class="form-check-input "
+                                                                                        type="checkbox"
+                                                                                        value="activeusers"
+                                                                                        id="activeusers"
+                                                                                        name="permission[]">
+                                                                                    <label class="form-check-label"
+                                                                                        for="corporatebatch">
+                                                                                        Active User Account
+                                                                                    </label>
+                                                                                </div>
+                                                                                <div class="form-check">
+                                                                                    <input class="form-check-input"
+                                                                                        type="checkbox" value="blockuser"
+                                                                                        id="blockuser"
+                                                                                        name="permission[]">
+                                                                                    <label class="form-check-label"
+                                                                                        for="blockuser">
+                                                                                        Block User Account
+                                                                                    </label>
+                                                                                </div>
+                                                                                <!-- <div class="col-md-4"> -->
+                                                                                <div class="form-check">
+                                                                                    <input class="form-check-input"
+                                                                                        type="checkbox"
+                                                                                        value="paymenthistory"
+                                                                                        id="paymenthistory"
+                                                                                        name="permission[]">
+                                                                                    <label class="form-check-label"
+                                                                                        for="paymenthistory">
+                                                                                        Payment History
+                                                                                    </label>
+                                                                                </div>
+                                                                                <div class="form-check">
+                                                                                    <input class="form-check-input"
+                                                                                        type="checkbox"
+                                                                                        value="winninghistory"
+                                                                                        id="winninghistory"
+                                                                                        name="permission[]">
+                                                                                    <label class="form-check-label"
+                                                                                        for="winninghistory">
+                                                                                        Winning History
+                                                                                    </label>
+                                                                                </div>
+                                                                            </div>
+                                                                            <div
+                                                                                class="col-md-12 d-flex justify-content-around">
+                                                                                <div class="form-check">
+                                                                                    <input class="form-check-input"
+                                                                                        type="checkbox"
+                                                                                        value="withdrawhistory"
+                                                                                        id="withdrawhistory"
+                                                                                        name="permission[]">
+                                                                                    <label class="form-check-label"
+                                                                                        for="withdrawhistory">
+                                                                                        Withdraw History
+                                                                                    </label>
+                                                                                </div>
+                                                                                <div class="form-check">
+                                                                                    <input class="form-check-input"
+                                                                                        type="checkbox"
+                                                                                        value="adminmanages"
+                                                                                        id="adminmanages"
+                                                                                        name="permission[]">
+                                                                                    <label class="form-check-label"
+                                                                                        for="adminmanages">
+                                                                                        Admin Manages
+                                                                                    </label>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="modal-footer">
+                                                                            <button type="button"
+                                                                                class="btn btn-secondary"
+                                                                                data-bs-dismiss="modal">Close</button>
+                                                                            <button type="submit" id="userUpdateButton"
+                                                                                class="btn btn-primary">Save
+                                                                                changes</button>
+                                                                        </div>
+                                                                </form>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                 </div>
             </div>
         </div>
+        @endforeach
+        </tbody>
+        </table>
+    </div>
     </div>
 @endsection
 @section('script-area')
-    <script>
-        $('#editModal{{ $user->id }}').on('show.bs.modal', function(event) {
-            var userId = {{ $user->id }};
-            fetchUserPermissions(userId);
-        });
-    </script>
-    <script>
-        function fetchUserPermissions(userId) {
-            $.ajax({
-                url: '/fetch-user-permissions/' + userId,
-                type: 'GET',
-                success: function(response) {
-                    response.permissions.forEach(function(permission) {
-                        $('#' + permission).prop('checked', true);
-                    });
-                },
-                error: function(xhr, status, error) {
-                    console.error(error);
-                }
-            });
-        }
-    </script>
     <script type="text/javascript">
         $(document).ready(function() {
             $(".toggle-password").click(function() {
@@ -407,5 +427,45 @@
                 $("input[type=checkbox]").prop('checked', $(this).prop('checked'));
             });
         });
+    </script>
+    <script>
+        function showModal(button) {
+            // alert(button.id);
+            var userId = button.id;
+            $("input[type='checkbox']:checked").prop("checked", false);
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+            $.ajax({
+                type: 'post',
+                url: "{{ url('fetch-user-permissions') }}",
+                data: {
+                    id: userId
+                },
+                success: (data) => {
+                    console.log(data);
+                    $('#userName').val(data.name);
+                    $('#userRole').val(data.role);
+                    $('#userId').val(data.id);
+                    let permissionData = JSON.parse(data.permissions);
+                    let permissionDataLength = permissionData.length;
+                    console.log(permissionData);
+                    for (let i = 0; i < permissionDataLength; i++) {
+                        console.log(permissionData[i]);
+                        if (permissionData[i] == "all") {
+                            $("#myModal input[type='checkbox']").prop("checked",true);
+                        } else {
+                            $(`#myModal input[type='checkbox']#${permissionData[i]}`).prop("checked",true);
+                        }
+                    }
+                    $('#myModal').modal('show');
+                },
+                error: function(data) {
+                    console.log(data);
+                }
+            });
+        };
     </script>
 @endsection

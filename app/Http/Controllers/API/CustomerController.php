@@ -28,7 +28,7 @@ class CustomerController extends Controller
                 $imageName = $request->file('profile_image')->getClientOriginalName();
                 $request->file('profile_image')->move(public_path('profile_images'), $imageName);
                 $validatedData['profile_image'] = 'profile_images/' . $imageName;
-            }                                   
+            }
             $validatedData['password'] = Hash::make($validatedData['password']);
             $customer = Customer::create($validatedData);
             return response()->json(['message' => 'Registered successfully', 'customer' => $customer], 201);
@@ -40,7 +40,6 @@ class CustomerController extends Controller
     }
     public function update(Request $request)
     {
-        // dd($request->all());
         try {
             $customer = Customer::find($request->id);
             $validatedData = $request->validate([
@@ -52,14 +51,13 @@ class CustomerController extends Controller
                 'password' => 'string',
                 'status' => 'nullable|in:active,block,pending',
             ]);
-            // dd($request->all());
             if ($request->hasFile('profile_image')) {
                 $imageName = $request->file('profile_image')->getClientOriginalName();
                 $request->file('profile_image')->move(public_path('profile_images'), $imageName);
                 $validatedData['profile_image'] = 'profile_images/' . $imageName;
-            }                                
+            }
             $customer->update($validatedData);
-            return response()->json(['message' => 'Details Update successfully','customer' => $customer], 200);
+            return response()->json(['message' => 'Details Update successfully', 'customer' => $customer], 200);
         } catch (ValidationException $e) {
             return response()->json(['errors' => $e->errors()], 422);
         } catch (ModelNotFoundException $e) {
@@ -70,13 +68,22 @@ class CustomerController extends Controller
     }
     public function login(Request $request)
     {
-        $credentials = $request->only('email', 'password');
-
-        if (Auth::guard('customer')->attempt($credentials)) {
+        try {
+            $credentials = $request->only('email_id', 'password');
+            if (!Auth::guard('customer')->attempt($credentials)) {
+                throw ValidationException::withMessages([
+                    'email_id' => ['Incorrect email or password.'],
+                ]);
+            }
             $customer = Auth::guard('customer')->user();
             $token = $customer->createToken('MyApp')->plainTextToken;
-            return response()->json(['token' => $token], 200);
+            return response()->json([
+                'message' => 'Login Successfully',
+                'token' => $token,
+                'customer' => $customer,
+            ], 200);
+        } catch (ValidationException $e) {
+            return response()->json(['message' => $e->getMessage()], 401);
         }
-        return response()->json(['message' => 'Unauthorized'], 401);
     }
 }

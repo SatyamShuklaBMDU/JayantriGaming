@@ -49,21 +49,22 @@ class AdminManageController extends Controller
             return back()->with('message', 'User Added Successfully');
         }
     }
-    public function updatePermissions(Request $request, User $user)
+    public function updatePermissions(Request $request,User $user)
     {
+        // dd($request->all());
         $request->validate([
             'role' => 'required',
-            'permissions' => 'required',
+            'permission' => 'required',
         ]);
+        $permissions = json_encode($request->permission);
         $user->update([
             'role' => $request->role,
-            'permissions' => $request->permissions,
+            'permissions' => $permissions,
         ]);
         return back()->with('message', 'Permissions updated successfully.');
     }
-    public function fetchUserPermissions($userId) {
-        $user = User::findOrFail($userId);
-        $permissions = json_decode($user->permissions);
-        return response()->json(['permissions' => $permissions]);
+    public function fetchUserPermissions(Request $request) {
+        $userData = User::where('id', $request->id)->first();
+        return $userData;
     }
 }

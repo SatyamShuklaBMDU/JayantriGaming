@@ -57,29 +57,21 @@
 @endsection
 @section('content-area')
     <div class="main1 mt-5">
-        <!-- Main content starts -->
-        {{-- <div class="container p-5"> --}}
         <div class="row">
             <div class="col-sm-12 p-0 mt-4">
                 <div class="main-header">
                     <h4 class="text-dark fw-bold text-center h2">Active User Account</h4>
                     <ol class="breadcrumb breadcrumb-title breadcrumb-arrow">
                         <li class="breadcrumb-item">
-                            <a href="index.html" class="text-decoration-none">
+                            <a href="#" class="text-decoration-none">
                                 <i class="fa-solid fa-house text-secondary"></i>
                             </a>
                         </li>
-                        <li class="breadcrumb-item  "><a href="#" style="color:black ;"
-                                class="text-decoration-none">Active User Account</a>
-                        </li>
-
+                        <li class="breadcrumb-item  "><a href="#" style="color:black ;" class="text-decoration-none">Active User Account</a></li>
                     </ol>
                 </div>
             </div>
         </div>
-        {{-- </div> --}}
-        <!--  -->
-        <!--  3 -row start block -->
         <div class="row dashboard-header">
             <div class="col-md-12">
                 <div class="row mt-3">
@@ -121,78 +113,49 @@
                                     <div class="col-md-1 " style="margin-left:-12px;  margin-top:40px;">
                                         <a class="btn bg-light shadow-lg" href="{{ route('active-user') }}">Reset</a>
                                     </div>
+                                </div>
                             </form>
                         </div>
-                    </div>
-                    <!--  -->
-                    <!-- 3 row end -->
-                    <!-- buttons -->
-                    {{-- <div class="row pt-4">
-                        <div class="col-md-7 ">
-                            <div class="row">
-                                <div class="col-md-4  text-center d-flex multiple-btn">
-                                    <button class="btn bg-light   shadow-lg" type="submit"
-                                        style="margin-left: 20px;">Copy</button>
-                                    <button class="btn bg-light   shadow-lg " type="submit"
-                                        style="margin-left: 30px;">CSV</button>
-                                    <button class="btn bg-light   shadow-lg " type="submit"
-                                        style="margin-left: 30px;">Excel</button>
-                                    <button class="btn bg-light   shadow-lg " type="submit"
-                                        style="margin-left: 30px;">PDF</button>
-                                    <button class="btn  bg-light   shadow-lg" type="submit"
-                                        style="margin-left: 30px;">Print</button>
-                                </div>
+                        <div class="row mt-3 px-4">
+                            <div class="col">
+                                <table class="table responsive-table table-striped shadow-lg table-hover" id="myTable">
+                                    <thead>
+                                        <tr class="" style="background-color:#E7EAEA;">
+                                            <th scope="col" style="padding:1rem; font-size:1.2rem;">Sr.No.</th>
+                                            <th scope="col " style="padding:1rem; font-size:1.2rem;">CIN NO.</th>
+                                            <th scope="col " style="padding: 1em;rem; font-size:1.2rem;">Name</th>
+                                            <th scope="col " style="padding:1rem; font-size:1rem;">Phone No.</th>
+                                            <th scope="col" style="padding:1rem; font-size:1.2rem;">Profile Image</th>
+                                            <th scope="col " style="padding:1rem; font-size:1.2rem;">Email Id</th>
+                                            <th scope="col " style="padding:1rem; font-size:1.2rem;">Status</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @if ($customers->isNotEmpty())
+                                            @foreach ($customers as $customer)
+                                                <tr data-customer-id="{{ $customer->id }}">
+                                                    <td style="padding:1rem;"><b> {{ $loop->iteration }}</b></td>
+                                                    <td>{{ $customer->cin_no }}</td>
+                                                    <td class="col-2" style="padding:1rem;">{{ $customer->name }}</td>
+                                                    <td style="padding:1rem;">{{ $customer->phone_no }}</td>
+                                                    <td style="padding:1rem;"><img
+                                                            src="{{ asset('profile_images/' . $customer->profile_image) }}"
+                                                            style="width: 100px;height:100px;" alt=""></td>
+                                                    <td class="col-2" style="padding:1rem;">{{ $customer->email_id }}</td>
+                                                    <td class="text-success" style="padding:1rem;">Active</td>
+                                                </tr>
+                                            @endforeach
+                                        @else
+                                            <h1>Found Not Data</h1>
+                                        @endif
+                                    </tbody>
+                                </table>
                             </div>
-                        </div>
-                        <div class="col-md-3">
-                            <input class="form-control border-none me-2" type="search" placeholder="Search"
-                                aria-label="Search">
-                        </div>
-                        <div class="col-md-2" style="margin-left: -15px; margin-top: 1.5px;">
-                            <button class="btn bg-light shadow-lg" type="submit">Search</button>
-                        </div>
-                    </div> --}}
-                    <!-- table -->
-                    <div class="row mt-3 px-4">
-                        <div class="col">
-                            <table class="table responsive-table table-striped shadow-lg table-hover" id="myTable">
-                                <thead>
-                                    <tr class="" style="background-color:#E7EAEA;">
-                                        <th scope="col" style="padding:1rem; font-size:1.2rem;">Sr.No.</th>
-                                        <th scope="col " style="padding:1rem; font-size:1.2rem;">CIN NO.</th>
-                                        <th scope="col " style="padding: 1em;rem; font-size:1.2rem;">Name</th>
-                                        <th scope="col " style="padding:1rem; font-size:1rem;">Phone No.</th>
-                                        <th scope="col" style="padding:1rem; font-size:1.2rem;">Profile Image</th>
-                                        <th scope="col " style="padding:1rem; font-size:1.2rem;">Email Id</th>
-                                        <th scope="col " style="padding:1rem; font-size:1.2rem;">Status</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    @if ($customers->isNotEmpty())
-                                        @foreach ($customers as $customer)
-                                            <tr data-customer-id="{{ $customer->id }}">
-                                                <td style="padding:1rem;"><b> {{ $loop->iteration }}</b></td>
-                                                <td>{{ $customer->cin_no }}</td>
-                                                <td class="col-2" style="padding:1rem;">{{ $customer->name }}</td>
-                                                <td style="padding:1rem;">{{ $customer->phone_no }}</td>
-                                                <td style="padding:1rem;"><img
-                                                        src="{{ asset('profile_images/' . $customer->profile_image) }}"
-                                                        style="width: 100px;height:100px;" alt=""></td>
-                                                <td class="col-2" style="padding:1rem;">{{ $customer->email_id }}</td>
-                                                <td class="text-success" style="padding:1rem;">Active</td>
-                                            </tr>
-                                        @endforeach
-                                    @else
-                                        <h1>Found Not Data</h1>
-                                    @endif
-                                </tbody>
-                            </table>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
     </div>
 @endsection
 @section('script-area')

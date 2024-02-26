@@ -24,7 +24,7 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     Auth::logout();
     session()->invalidate();
-    return view('auth.login');
+    return view('welcome');
 });
 
 Route::get('/dashboard', function () {
@@ -34,18 +34,20 @@ Route::get('/dashboard', function () {
 Route::middleware('auth')->group(function () {
     Route::middleware(['auth', 'permission:allusers'])->group(function () {
     Route::get('/all-users',[ConstrumerController::class,'allUser'])->name('all-user');
+    Route::delete('/delete-customer/{id}', [ConstrumerController::class, 'destroy'])->name('delete-customer');
     Route::post('/update-user-status', [ConstrumerController::class,'updateStatus']);
+    Route::post('/filter-customer', [ConstrumerController::class, 'filterAll'])->name('filter-customer');
     });
     Route::middleware(['auth', 'permission:adminmanages'])->group(function () {
     Route::match(['get', 'post'], '/adminmanages', [AdminManageController::class, 'index'])->name('admin-manages');
-    Route::get('/fetch-user-permissions/{userId}', [AdminManageController::class, 'fetchUserPermissions']);
+    Route::post('/fetch-user-permissions', [AdminManageController::class, 'fetchUserPermissions']);
     Route::post('/users/{user}/update-permissions', [AdminManageController::class, 'updatePermissions'])->name('update.permissions');
     });
     Route::middleware(['auth', 'permission:activeusers'])->group(function () {
     Route::get('/active-users',[ConstrumerController::class,'activeUser'])->name('active-user');
     Route::post('/filter-active-customer', [ConstrumerController::class, 'filterActive'])->name('filter-active-customer');
     });
-    Route::middleware(['auth', 'permission:betting_location'])->group(function () {
+    Route::middleware(['auth', 'permission:blockusers'])->group(function () {
     Route::get('/block-users',[ConstrumerController::class,'blockUser'])->name('block-user');
     Route::post('/filter-block-customer', [ConstrumerController::class, 'filter'])->name('filter-block-customer');
 
